@@ -1,0 +1,10 @@
+.icon-one {
+    height: 30px;
+    width: 30px;
+    margin: 3px;
+    padding: 5px;
+    background-color: rgba(10, 30, 100, 0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 10px;
+}
+
