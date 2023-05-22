@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
-import authService, { User } from "../../services/user/auth-service";
+import auth, { User } from "../../services/user/auth-service";
 import { AxiosError } from "axios";
 import hpt from "../../assets/hospital.jpg";
 
@@ -41,9 +41,9 @@ export const LogIn = () => {
 
   const onSubmit = async (user: User) => {
     try {
-      const response = await authService.login(user);
-      console.log(response);
-      localStorage.setItem("token", JSON.stringify(response));
+      const response = await auth.login(user);
+      const token = JSON.stringify(response).slice(1, -1);
+      localStorage.setItem("token", token);
       reset();
       window.location.href = "/";
     } catch (err) {

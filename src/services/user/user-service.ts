@@ -1,4 +1,3 @@
-import axios, { AxiosResponse } from "axios";
 import APIClient from "../api-client";
 
 const apiClient = new APIClient<User>('/users');
@@ -8,17 +7,12 @@ export interface User {
     password: string,
 }
 
-// interface CreateUserResponse extends AxiosResponse {
-//     headers: {
-//       token: string;
-//     };
-//   }
+export function register(user: User){
+    return apiClient.postH(user);
+}
 
-class UserService {
-   
-    register(user: User){
-        return apiClient.post(user);
-    }
-} 
+const user =  {
+    register
+}
 
-export default new UserService();
+export default user;

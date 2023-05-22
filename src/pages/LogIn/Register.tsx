@@ -19,7 +19,7 @@ import {
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 
-import userService, { User } from "../../services/user/user-service";
+import user, { User } from "../../services/user/user-service";
 
 import hpt from "../../assets/hospital.jpg";
 
@@ -55,8 +55,8 @@ export const Register = () => {
 
   const onSubmit = async (data: User) => {
     try {
-      const response = await userService.register(data);
-      //localStorage.setItem("token", response.headers.token);
+      const response = await user.register(data);
+      localStorage.setItem("token", response.headers["x-auth-token"]);
       reset();
       setIsAlertOpen(true);
     } catch (err: any) {

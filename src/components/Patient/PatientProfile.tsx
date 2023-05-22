@@ -15,7 +15,6 @@ export const PatientProfile = () => {
   const { id } = useParams();
 
   const { data: patient, isLoading, error } = usePatientId(id!);
-
   //if (error) return <p>{error.m}</p>;
 
   if (isLoading) return <p>Loading...</p>;

@@ -1,12 +1,13 @@
 import axios, { AxiosRequestConfig} from 'axios';
 import config from "./config.json";
-import { getJwt } from './user/auth-service';
 
 const axiosInstance = axios.create({
     baseURL: config.apiUrl
 })
 
-
+export function setJwt(jwt: any) {
+    axiosInstance.defaults.headers.common["x-auth-token"] = jwt;
+}
 
 class APIClient<T> {
     endpoint: string;
@@ -21,6 +22,13 @@ class APIClient<T> {
        .then(res => res.data);
     }
 
+    getMe = () => {
+        return axiosInstance
+        .get<T[]>(this.endpoint)
+        .then(res => res.data)
+       
+    }
+
     get = (id: number | string) => {
         return axiosInstance
             .get<T>(this.endpoint + '/' + id)
@@ -31,6 +39,18 @@ class APIClient<T> {
         return axiosInstance
             .post<T>(this.endpoint, data)
             .then(res => res.data)
+    }
+
+    postH = <T>(data: T): Promise<{data: T[]; headers: any; request: any}> => {
+        return axiosInstance
+       .post<T[]>(this.endpoint, data)
+       .then((res) =>  {
+            return {
+                data: res.data,
+                headers: res.headers,
+                request: res.request,
+            }
+       });
     }
 
     put = (id: number | string, data: T) => {
@@ -46,8 +66,7 @@ class APIClient<T> {
     }
 }
 
-export function setJwt(jwt: any) {
-    axios.defaults.headers.common['token'] = jwt;
-}
+
 
 export default APIClient;
+

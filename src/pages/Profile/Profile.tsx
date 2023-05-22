@@ -1,11 +1,4 @@
-import { GridItem, Show, VStack, Heading } from "@chakra-ui/react";
-import { useState } from "react";
 import { Menu } from "../../components/Aside/Menu";
-import { StaffMain } from "../../components/Staff/StaffMain";
-import { SearchInput } from "../../components/Staff/SearchInput";
-import { StaffFilter } from "../../components/Staff/StaffFilter";
-import { Staff } from "../../hooks/staffs/useStaffInfo";
-
 import { BiEnvelopeOpen } from "react-icons/bi";
 import { AiFillHome } from "react-icons/ai";
 import { HiUserGroup } from "react-icons/hi";
@@ -15,6 +8,8 @@ import { BsBuildingFillAdd } from "react-icons/bs";
 import { NavBar } from "../../components/Header/NavBar";
 import { Template } from "../../components/Template/Template";
 import { Footer } from "../../components/Footer/Footer";
+import { Show, VStack, Heading } from "@chakra-ui/react";
+import { ProfileDetails } from "../../components/Profile/ProfileDetails";
 
 const list = [
   {
@@ -60,18 +55,11 @@ interface Props {
   user: any;
 }
 
-export interface StaffQuery {
-  role: Staff | null;
-  filter: string | null;
-  searchText: string | null;
-  dept: string | null;
-}
-
-export const Staffs = ({ user }: Props) => {
+export const Profile = ({ user }: Props) => {
   const gridItems: GridItem[] = [
     { area: `nav`, children: <NavBar user={user} /> },
     { area: `aside`, children: <MenuSection user={user} /> },
-    { area: `main`, children: <StaffMainSection /> },
+    { area: `main`, children: <ProfileMainSection /> },
   ];
   return <Template gridItems={gridItems} />;
 };
@@ -86,26 +74,12 @@ const MenuSection = ({ user }: Props) => {
   );
 };
 
-const StaffMainSection = () => {
-  const [staffQuery, setStaffQuery] = useState<StaffQuery>({} as StaffQuery);
+const ProfileMainSection = () => {
   return (
     <>
       <VStack spacing={8} align="stretch" minH="100vh">
-        <Heading>Staff</Heading>
-        <SearchInput
-          onSearch={(searchText) =>
-            setStaffQuery({ ...staffQuery, searchText })
-          }
-        />
-        <StaffFilter
-          onSelectedGenre={(role) => setStaffQuery({ ...staffQuery, role })}
-          onSelectedFilter={(filter) =>
-            setStaffQuery({ ...staffQuery, filter })
-          }
-          selectedDept={(dept) => setStaffQuery({ ...staffQuery, dept })}
-          selectedFilter={staffQuery.filter}
-        />
-        <StaffMain staffQuery={staffQuery} />
+        <Heading>Profile</Heading>
+        <ProfileDetails />
       </VStack>
       <Footer />
     </>

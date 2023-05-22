@@ -1,7 +1,8 @@
-import APIClient, { setJwt } from "../api-client";
+import APIClient, {setJwt} from "../api-client";
 import jwtDecode from "jwt-decode";
 
 const apiClient = new APIClient<User>('/auth');
+const tokenKey = "token";
 
 export interface User {
     email: string,
@@ -10,19 +11,21 @@ export interface User {
 
 setJwt(getJwt());
 
-class AuthService{
-   async login(user: User){
-        return apiClient.post(user);
-    }
+export async function login(user: User){
+    return apiClient.post(user);
+}
+
+export function loginWithJwt(jwt: any){
+    localStorage.setItem(tokenKey, jwt)
 }
 
 export function logout(){
-    localStorage.removeItem('token');
+    localStorage.removeItem(tokenKey);
 }
 
 export function getCurrentUser(){
     try {
-        const jwt: any = localStorage.getItem("token");
+        const jwt: any = localStorage.getItem(tokenKey);
         return jwtDecode(jwt);
       } catch (ex) {
         return null
@@ -30,8 +33,17 @@ export function getCurrentUser(){
 }
 
 export function getJwt(){
-    return localStorage.getItem('token');
+    return localStorage.getItem(tokenKey);
 }
 
-export default new AuthService();
+
+const auth = {
+    login,
+    loginWithJwt,
+    getJwt,
+    getCurrentUser,
+    logout
+};
+
+export default auth;
 
