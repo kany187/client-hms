@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig} from 'axios';
 import config from "./config.json";
 
 const axiosInstance = axios.create({
-    baseURL: config.apiUrl
+    baseURL: config.apiUrlProd
 })
 
 export function setJwt(jwt: any) {
