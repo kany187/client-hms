@@ -6,6 +6,8 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./theme";
 import App from "./App";
 
+console.log("SUPERMAN", process.env.REACT_APP_NAME);
+
 const queryClient = new QueryClient();
 
 const root = ReactDOM.createRoot(

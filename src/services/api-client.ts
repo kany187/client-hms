@@ -1,8 +1,7 @@
 import axios, { AxiosRequestConfig} from 'axios';
-import config from "./config.json";
 
 const axiosInstance = axios.create({
-    baseURL: config.apiUrlProd
+    baseURL: process.env.REACT_APP_API_URL
 })
 
 export function setJwt(jwt: any) {
