@@ -11,7 +11,6 @@ export interface Appointment {
     doctor: string,
     startDate: string,
     startTime: string,
-    endTime: string,
     phone: string
     desc: string
 }

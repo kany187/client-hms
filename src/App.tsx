@@ -17,6 +17,7 @@ import { Doctor } from "./pages/Doctor/Doctor";
 import { Department } from "./pages/Department/Department";
 import { DoctorProfile } from "./pages/Doctor/DoctorProfile";
 import { Profile } from "./pages/Profile/Profile";
+import { Message } from "./pages/Message/Message";
 
 class App extends Component {
   state: any = {};
@@ -52,6 +53,7 @@ class App extends Component {
             path="/department"
             element={<Department user={this.state.user} />}
           />
+          <Route path="/message" element={<Message user={this.state.user} />} />
           <Route path="/profile" element={<Profile user={this.state.user} />} />
         </Routes>
       </div>

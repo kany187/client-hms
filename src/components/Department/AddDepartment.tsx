@@ -112,6 +112,7 @@ export const AddDepartment = () => {
                 <Input
                   {...register("hospitalId")}
                   //ref={initialRef}
+                  display="none"
                   value="63f0082ea526022014a5b323"
                   placeholder="Hospital ID"
                 />

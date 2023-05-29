@@ -33,7 +33,7 @@ const schema = z.object({
   doctor: z.string().min(5),
   startDate: z.string(),
   startTime: z.string(),
-  endTime: z.string(),
+  // endTime: z.string(),
   desc: z.string(),
 });
 
@@ -146,10 +146,10 @@ export const AddAppointmentForm = ({
                 <FormLabel>Start Time</FormLabel>
                 <Input {...register("startTime")} type="time" />
               </FormControl>
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel>End Time</FormLabel>
                 <Input {...register("endTime")} type="time" />
-              </FormControl>
+              </FormControl> */}
               <FormControl>
                 <FormLabel>Description</FormLabel>
                 <Textarea {...register("desc")} placeholder="desc"></Textarea>

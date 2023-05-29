@@ -20,23 +20,21 @@ const AppointmentList = () => {
         <Table>
           <Thead>
             <Tr>
+              <Th>ID</Th>
               <Th>Name</Th>
-              <Th>Service</Th>
-              <Th>Consulting doctor</Th>
-              <Th>Condition</Th>
-              <Th>Visit Time</Th>
-              <Th>Action</Th>
+              <Th>Phone</Th>
+              <Th>Date</Th>
+              <Th>Time</Th>
             </Tr>
           </Thead>
           <Tbody>
             {data?.map((apt) => (
               <Tr>
-                <Td>{apt.title}</Td>
-                <Td>{apt.service}</Td>
+                <Td>{apt._id}</Td>
+                <Td>{apt.patientName}</Td>
+                <Td>{apt.phone}</Td>
                 <Td>{apt.startDate}</Td>
-                <Td>{apt.title}</Td>
                 <Td>{apt.startTime}</Td>
-                <Td>...</Td>
               </Tr>
             ))}
           </Tbody>

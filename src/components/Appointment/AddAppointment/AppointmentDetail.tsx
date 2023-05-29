@@ -57,7 +57,7 @@ export const AppointmentDetail = ({ isOpen, isClose, id }: Props) => {
             <Divider />
             <Text>Start Time: {appointment?.startTime}</Text>
             <Divider />
-            <Text>End Time: {appointment?.endTime}</Text>
+            {/* <Text>End Time: {appointment?.endTime}</Text> */}
           </ModalBody>
 
           <ModalFooter>

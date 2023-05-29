@@ -26,7 +26,7 @@ const Dashboard = () => {
           bg="orange"
           alignItems="center"
         >
-          <Center height="130px">Completed appointments: 20</Center>
+          <Center height="130px">Today's Appointments: 20</Center>
         </Box>
         <Box
           borderRadius="10px"
@@ -36,17 +36,7 @@ const Dashboard = () => {
           bg="green.300"
           alignItems="center"
         >
-          <Center height="130px">Remaining appointments: 20</Center>
-        </Box>
-        <Box
-          borderRadius="10px"
-          border="1px solid rgba(255,255,255,0.25)"
-          width="60%"
-          height="130px"
-          bg="red.100"
-          alignItems="center"
-        >
-          <Center height="130px">Total appointments: 20</Center>
+          <Center height="130px">Cancelled Appointments: 20</Center>
         </Box>
       </SimpleGrid>
       <Link to="/add-appointment">

@@ -14,7 +14,8 @@ import { NavBar } from "../../components/Header/NavBar";
 import { Template } from "../../components/Template/Template";
 import { Menu } from "../../components/Aside/Menu";
 import { GridItem } from "../Patient/Patient";
-import Dashboard from "../../components/Appointment/Dashboard";
+import { Chat } from "../../components/Message/Chat";
+import { Footer } from "../../components/Footer/Footer";
 
 const list = [
   {
@@ -73,7 +74,6 @@ const list = [
   },
   {
     name: "Message",
-    path: "/message",
     icon: BiEnvelopeOpen,
     iconOpen: MdOutlineKeyboardArrowRight,
     iconClosed: MdOutlineKeyboardArrowDown,
@@ -84,11 +84,11 @@ interface Props {
   user: any;
 }
 
-export const Appointment = ({ user }: Props) => {
+export const Message = ({ user }: Props) => {
   const gridItems: GridItem[] = [
     { area: `nav`, children: <NavBar user={user} /> },
     { area: `aside`, children: <MenuSection user={user} /> },
-    { area: `main`, children: <AppointmentSection /> },
+    { area: `main`, children: <MessageSection /> },
   ];
   return <Template gridItems={gridItems} />;
 };
@@ -103,10 +103,11 @@ const MenuSection = ({ user }: Props) => {
   );
 };
 
-const AppointmentSection = () => {
+const MessageSection = () => {
   return (
     <>
-      <Dashboard />
+      <Chat />
+      <Footer />
     </>
   );
 };
