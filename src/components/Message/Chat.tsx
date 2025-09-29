@@ -15,19 +15,7 @@ export const Chat = () => {
 
   //const socket = io("ws://localhost:4000");
 
-  console.log(socket);
-
-  //   useEffect(() => {
-  //     setSocket(io("http://localhost:4000"));
-  //   }, []);
-
-  //   console.log(socket);
-
-  //   useEffect(() => {
-  //     socket?.on("welcome", (message: string) => {
-  //       console.log(message);
-  //     });
-  //   }, [socket]);
+  // Socket connection established
 
   return (
     <div>

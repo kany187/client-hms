@@ -22,7 +22,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Patient } from "../../../hooks/patients/usePatient";
+import { Patient } from "../../../types";
 import usePatientDelete from "../../../hooks/patients/usePatientDelete";
 import usePutPatient from "../../../hooks/patients/usePutPatient";
 import { schema } from "../AddPatient";
@@ -71,8 +71,14 @@ export const PatientTabComponent = ({ data, id }: Props) => {
     setTimeout(() => navigate("/patient"), 1000);
   };
 
-  const onSubmit = (data: Patient) => {
-    putPatient.mutate(removeEmptyValues(data));
+  const onSubmit = (formData: FormData) => {
+    // Convert FormData to Patient type
+    const patientData: Patient = {
+      ...data, // Keep existing patient data
+      ...formData, // Override with form data
+    };
+    
+    putPatient.mutate(removeEmptyValues(patientData));
 
     setTimeout(() => navigate("/patient"), 5000);
 
@@ -195,7 +201,7 @@ export const PatientTabComponent = ({ data, id }: Props) => {
                     </Tr>
                     <Tr>
                       <Td>Description</Td>
-                      <Textarea {...register("desc")} placeholder={data.desc} />
+                      <Textarea {...register("desc")} placeholder={data.description || ''} />
                     </Tr>
                   </Tbody>
                 </Table>

@@ -1,37 +1,58 @@
-import FullCalendar from "@fullcalendar/react"; // must go before plugins
-import dayGridPlugin from "@fullcalendar/daygrid"; // a plugin!
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import useAppointment from "../../../hooks/appointments/useAppointment";
-
-import "./Calendar.css";
-import moment from "moment";
+import { ModernCalendar } from "./ModernCalendar";
+import { WeeklyCalendar } from "./WeeklyCalendar";
+import { SimpleCalendar } from "./SimpleCalendar";
+import { useState } from "react";
+import { Box, Button, HStack, Text, useColorModeValue } from "@chakra-ui/react";
 
 export const CalendarComponent = () => {
-  const { data } = useAppointment();
+  const [calendarType, setCalendarType] = useState<'modern' | 'weekly' | 'simple'>('modern');
+  const textColor = useColorModeValue("gray.600", "gray.300");
 
-  const event = data?.map((app) => {
-    const startDate = moment(`${app.startDate} ${app.startTime}`).toDate();
-    //const endDate = moment(`${app.endDate} ${app.endTime}`).toDate();
-
-    return {
-      id: app._id,
-      title: app.title,
-      start: new Date(app.startDate),
-      //end: new Date(app.endDate),
-    };
-  });
+  const renderCalendar = () => {
+    switch (calendarType) {
+      case 'modern':
+        return <ModernCalendar />;
+      case 'weekly':
+        return <WeeklyCalendar />;
+      case 'simple':
+        return <SimpleCalendar />;
+      default:
+        return <ModernCalendar />;
+    }
+  };
 
   return (
-    <div className="calendar">
-      <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
-        headerToolbar={{
-          right: "prev,next",
-        }}
-        events={event}
-      />
-    </div>
+    <Box>
+      {/* Calendar Type Selector */}
+      <HStack spacing={2} mb={4} justify="center">
+        <Button
+          size="sm"
+          variant={calendarType === 'modern' ? 'solid' : 'outline'}
+          colorScheme="teal"
+          onClick={() => setCalendarType('modern')}
+        >
+          Month View
+        </Button>
+        <Button
+          size="sm"
+          variant={calendarType === 'weekly' ? 'solid' : 'outline'}
+          colorScheme="teal"
+          onClick={() => setCalendarType('weekly')}
+        >
+          Week View
+        </Button>
+        <Button
+          size="sm"
+          variant={calendarType === 'simple' ? 'solid' : 'outline'}
+          colorScheme="teal"
+          onClick={() => setCalendarType('simple')}
+        >
+          Simple View
+        </Button>
+      </HStack>
+
+      {/* Selected Calendar */}
+      {renderCalendar()}
+    </Box>
   );
 };

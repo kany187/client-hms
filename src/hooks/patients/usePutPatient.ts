@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import APIClient from "../../services/api-client";
-import { Patient } from "./usePatient";
+import { Patient } from "../../types";
 
 const apiClient = new APIClient<Patient>('/patient');
 

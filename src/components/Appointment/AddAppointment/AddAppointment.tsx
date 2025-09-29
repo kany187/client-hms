@@ -17,13 +17,13 @@ const AddAppointment = () => {
   const { data, error } = useAppointment();
 
   const event = data?.map((app) => {
-    const startDate = moment(`${app.startDate} ${app.startTime}`).toDate();
+    const startDate = moment(`${app.date} ${app.time}`).toDate();
     //const endDate = moment(`${app.endDate} ${app.endTime}`).toDate();
 
     return {
       id: app._id,
-      title: app.title,
-      start: new Date(app.startDate),
+      title: `${app.type} - ${app.status}`,
+      start: new Date(app.date),
       //end: new Date(app.endDate),
     };
   });

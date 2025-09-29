@@ -1,38 +1,45 @@
 import APIClient, {setJwt} from "../api-client";
 import jwtDecode from "jwt-decode";
+import { User } from "../../types";
 
-const apiClient = new APIClient<User>('/auth');
+const apiClient = new APIClient<LoginUser>('/auth');
 const tokenKey = "token";
 
-export interface User {
+export interface LoginUser {
     email: string,
     password: string
 }
 
-setJwt(getJwt());
+// Initialize JWT if available
+const jwt = getJwt();
+if (jwt) {
+    setJwt(jwt);
+}
 
-export async function login(user: User){
+export async function login(user: LoginUser){
     return apiClient.post(user);
 }
 
-export function loginWithJwt(jwt: any){
-    localStorage.setItem(tokenKey, jwt)
+export function loginWithJwt(jwt: string){
+    localStorage.setItem(tokenKey, jwt);
+    setJwt(jwt);
 }
 
 export function logout(){
     localStorage.removeItem(tokenKey);
 }
 
-export function getCurrentUser(){
+export function getCurrentUser(): User | null {
     try {
-        const jwt: any = localStorage.getItem(tokenKey);
-        return jwtDecode(jwt);
+        const jwt = localStorage.getItem(tokenKey);
+        if (!jwt) return null;
+        return jwtDecode(jwt) as User;
       } catch (ex) {
-        return null
+        return null;
       }
 }
 
-export function getJwt(){
+export function getJwt(): string | null {
     return localStorage.getItem(tokenKey);
 }
 

@@ -1,5 +1,4 @@
-import { Component } from "react";
-
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Staffs } from "./pages/Staff/Staffs";
 import { Home } from "./pages/Home";
@@ -18,47 +17,57 @@ import { Department } from "./pages/Department/Department";
 import { DoctorProfile } from "./pages/Doctor/DoctorProfile";
 import { Profile } from "./pages/Profile/Profile";
 import { Message } from "./pages/Message/Message";
+import { User } from "./types";
 
-class App extends Component {
-  state: any = {};
+const App: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  componentDidMount() {
-    const user = getCurrentUser();
-    this.setState({ user });
+  useEffect(() => {
+    try {
+      const currentUser = getCurrentUser();
+      setUser(currentUser);
+    } catch (error) {
+      console.error("Error getting current user:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  render() {
-    return (
-      <div>
-        <Routes>
-          <Route path="/login" Component={LogIn} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/staff" element={<Staffs user={this.state.user} />} />
-          <Route path="/" element={<Home user={this.state.user} />} />
-          <Route path="/patient" element={<Patient user={this.state.user} />} />
-          <Route path="/add-patient" element={<AddPatient />} />
-          <Route path="/patient/:id" element={<PatientProfile />} />
-          <Route
-            path="/appointment"
-            element={<Appointment user={this.state.user} />}
-          />
-          <Route path="/add-appointment" element={<AddAppointment />} />
-          <Route path="/doctor" element={<Doctor user={this.state.user} />} />
-          <Route
-            path="/doctor/:id"
-            element={<DoctorProfile user={this.state.user} />}
-          />
-          <Route
-            path="/department"
-            element={<Department user={this.state.user} />}
-          />
-          <Route path="/message" element={<Message user={this.state.user} />} />
-          <Route path="/profile" element={<Profile user={this.state.user} />} />
-        </Routes>
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <Routes>
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/staff" element={<Staffs user={user} />} />
+        <Route path="/" element={<Home user={user} />} />
+        <Route path="/patient" element={<Patient user={user} />} />
+        <Route path="/add-patient" element={<AddPatient />} />
+        <Route path="/patient/:id" element={<PatientProfile />} />
+        <Route
+          path="/appointment"
+          element={<Appointment user={user} />}
+        />
+        <Route path="/add-appointment" element={<AddAppointment />} />
+        <Route path="/doctor" element={<Doctor user={user} />} />
+        <Route
+          path="/doctor/:id"
+          element={<DoctorProfile user={user} />}
+        />
+        <Route
+          path="/department"
+          element={<Department user={user} />}
+        />
+        <Route path="/message" element={<Message user={user} />} />
+        <Route path="/profile" element={<Profile user={user} />} />
+      </Routes>
+    </div>
+  );
+};
 
 export default App;

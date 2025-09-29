@@ -1,10 +1,10 @@
-import axios, { AxiosRequestConfig} from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 const axiosInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL
 })
 
-export function setJwt(jwt: any) {
+export function setJwt(jwt: string) {
     axiosInstance.defaults.headers.common["x-auth-token"] = jwt;
 }
 
@@ -46,7 +46,7 @@ class APIClient<T> {
             .then(res => res.data)
     }
 
-    postH = <T>(data: T): Promise<{data: T[]; headers: any; request: any}> => {
+    postH = <T>(data: T): Promise<{data: T[]; headers: AxiosResponse['headers']; request: AxiosResponse['request']}> => {
         return axiosInstance
        .post<T[]>(this.endpoint, data)
        .then((res) =>  {

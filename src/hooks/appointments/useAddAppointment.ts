@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import APIClient from "../../services/api-client";
-import { Appointment } from "./useAppointment";
+import { Appointment } from "../../types";
 
 const apiClient = new APIClient<Appointment>('/appointments');
 

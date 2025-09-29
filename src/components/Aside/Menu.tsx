@@ -17,6 +17,7 @@ interface Props {
     iconOpen?: IconType;
     subMenu?: subMenu[];
     path?: string;
+    elementType?: string;
   }[];
 }
 

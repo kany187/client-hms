@@ -6,6 +6,10 @@ import {
   GridItem,
   Show,
   Stack,
+  Container,
+  VStack,
+  HStack,
+  Text,
 } from "@chakra-ui/react";
 import { NavBar } from "../components/Header/NavBar";
 import { Menu } from "../components/Aside/Menu";
@@ -24,6 +28,7 @@ import { FaUserTie } from "react-icons/fa";
 import { RiUserReceivedFill, RiStethoscopeFill } from "react-icons/ri";
 import { BsBuildingFillAdd } from "react-icons/bs";
 import { Footer } from "../components/Footer/Footer";
+import { User } from "../types";
 
 const list = [
   {
@@ -63,12 +68,12 @@ const list = [
 ];
 
 interface Props {
-  user: any;
+  user: User | null;
 }
 
 export const Home = ({ user }: Props) => {
   return (
-    <>
+    <Box minH="100vh" bg="gray.50">
       <Grid
         templateAreas={{
           base: `"nav" "main"`,
@@ -78,6 +83,7 @@ export const Home = ({ user }: Props) => {
           base: "1fr",
           lg: "250px 1fr",
         }}
+        minH="100vh"
       >
         <GridItem area="nav">
           <NavBar user={user} />
@@ -87,70 +93,134 @@ export const Home = ({ user }: Props) => {
             <Menu data={user} list={list} />
           </GridItem>
         </Show>
-        <GridItem area="main">
-          <Grid
-            templateAreas={`'left right' 'left right'`}
-            // templateColumns="repeat(2 1fr)"
-            gridTemplateColumns={"900px 655px 1fr"}
-            // templateRows={"150px 150px"}
-            gap={2}
-          >
-            <GridItem
-              area="left"
-              // bg="rgba(10, 30, 100, 0.1)"
-              bg="gray.50"
-              border="1px solid rgba(255,255,255,0.25)"
-              borderRadius="10px"
+        <GridItem area="main" p={{ base: "4", md: "6", lg: "8" }}>
+          <Container maxW="container.xl">
+            {/* Top Section - Calendar and Statistics */}
+            <Grid
+              templateAreas={{
+                base: `"left" "right"`,
+                lg: `"left right"`,
+              }}
+              templateColumns={{
+                base: "1fr",
+                lg: "1fr 1fr",
+              }}
+              gap={{ base: "6", lg: "8" }}
+              mb={{ base: "8", lg: "10" }}
             >
-              <Stack direction="row" spacing="40px">
-                <CalendarComponent />
-                <Divider
-                  orientation="vertical"
-                  height="310px"
-                  p="3px"
-                  m="3px"
-                />
-                <ReportList />
-              </Stack>
-            </GridItem>
-            <GridItem
-              area="right"
-              bg="gray.50"
-              border="1px solid rgba(255,255,255,0.25)"
-              borderRadius="10px"
+              <GridItem area="left">
+                <Box
+                  bg="white"
+                  border="1px solid"
+                  borderColor="gray.200"
+                  borderRadius="xl"
+                  p={{ base: "6", md: "8" }}
+                  shadow="md"
+                  minH="520px"
+                >
+                  <Stack 
+                    direction={{ base: "column", lg: "row" }} 
+                    spacing={{ base: "8", lg: "10" }}
+                    align="stretch"
+                    h="full"
+                  >
+                    <Box flex="1" p={4} minH="420px">
+                      <CalendarComponent />
+                    </Box>
+                    <Show above="lg">
+                      <Divider orientation="vertical" />
+                    </Show>
+                    <Box flex="1" p={4} minH="420px" overflow="hidden">
+                      <Box maxH="380px" overflowY="auto">
+                        <ReportList />
+                      </Box>
+                    </Box>
+                  </Stack>
+                </Box>
+              </GridItem>
+              
+              <GridItem area="right">
+                <Box
+                  bg="white"
+                  border="1px solid"
+                  borderColor="gray.200"
+                  borderRadius="lg"
+                  p={{ base: "4", md: "6" }}
+                  shadow="sm"
+                >
+                  <Statistics />
+                </Box>
+              </GridItem>
+            </Grid>
+
+            {/* Bottom Section - Patient, Staff, and Revenue */}
+            <Grid
+              templateColumns={{
+                base: "1fr",
+                md: "1fr 1fr",
+                lg: "1fr 1fr 1fr",
+              }}
+              gap={{ base: "6", md: "8" }}
             >
-              <Statistics />
-            </GridItem>
-          </Grid>
-          <Flex gap="5" pt="15px">
-            <Box
-              bg="gray.50"
-              border="1px solid rgba(255,255,255,0.25)"
-              borderRadius="10px"
-            >
-              <PatientGrid />
-              <PatientStats />
-            </Box>
-            <Box
-              bg="gray.50"
-              border="1px solid rgba(255,255,255,0.25)"
-              borderRadius="10px"
-              w="40%"
-            >
-              <Staff />
-            </Box>
-            <Box
-              bg="gray.50"
-              border="1px solid rgba(255,255,255,0.25)"
-              borderRadius="10px"
-              w="28%"
-            >
-              <Revenue />
-            </Box>
-          </Flex>
+              <GridItem>
+                <Box
+                  bg="white"
+                  border="1px solid"
+                  borderColor="gray.200"
+                  borderRadius="xl"
+                  p={{ base: "6", md: "8" }}
+                  shadow="md"
+                  _hover={{ 
+                    shadow: "lg",
+                    transition: "all 0.2s ease-in-out"
+                  }}
+                  transition="all 0.2s ease-in-out"
+                >
+                  <PatientGrid />
+                  <PatientStats />
+                </Box>
+              </GridItem>
+              
+              <GridItem>
+                <Box
+                  bg="white"
+                  border="1px solid"
+                  borderColor="gray.200"
+                  borderRadius="xl"
+                  p={{ base: "6", md: "8" }}
+                  shadow="md"
+                  _hover={{ 
+                    shadow: "lg",
+                    transition: "all 0.2s ease-in-out"
+                  }}
+                  transition="all 0.2s ease-in-out"
+                >
+                  <Staff />
+                </Box>
+              </GridItem>
+              
+              <GridItem>
+                <Box
+                  bg="white"
+                  border="1px solid"
+                  borderColor="gray.200"
+                  borderRadius="xl"
+                  p={{ base: "6", md: "8" }}
+                  shadow="md"
+                  _hover={{ 
+                    shadow: "lg",
+                    transition: "all 0.2s ease-in-out"
+                  }}
+                  transition="all 0.2s ease-in-out"
+                >
+                  <Revenue />
+                </Box>
+              </GridItem>
+            </Grid>
+          </Container>
         </GridItem>
       </Grid>
       <Footer />
-    </>
+    </Box>
   );
 };

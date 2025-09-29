@@ -6,7 +6,7 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./theme";
 import App from "./App";
 
-console.log("SUPERMAN", process.env.REACT_APP_NAME);
+// Application initialized
 
 const queryClient = new QueryClient();
 

@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 
-import auth, { User } from "../../services/user/auth-service";
+import auth, { LoginUser } from "../../services/user/auth-service";
 import { AxiosError } from "axios";
 import hpt from "../../assets/hospital.jpg";
 
@@ -39,7 +39,7 @@ export const LogIn = () => {
 
   const [error, setError] = useState("");
 
-  const onSubmit = async (user: User) => {
+  const onSubmit = async (user: LoginUser) => {
     try {
       const response = await auth.login(user);
       const token = JSON.stringify(response).slice(1, -1);

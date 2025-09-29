@@ -1,21 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import APIClient from "../../services/api-client";
+import { Patient } from "../../types";
 
 const apiClient = new APIClient<Patient>('/patient');
-
-export interface Patient {
-    _id?: string,
-    firstName: string,
-    lastName: string,
-    addressStreet: string,
-    addressCity: string,
-    phone: string,
-    gender: string,
-    dob: string
-    marital?: string,
-    occupation?: string,
-    desc?: string
-}
 
 const usePatient = () => useQuery({
     queryKey: ['patients'],

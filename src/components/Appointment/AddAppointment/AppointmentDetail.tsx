@@ -47,17 +47,21 @@ export const AppointmentDetail = ({ isOpen, isClose, id }: Props) => {
 
           <ModalCloseButton />
           <ModalBody>
-            <Text>Patient Name: {appointment?.patientName}</Text>
+            <Text>Patient ID: {appointment?.patientId}</Text>
             <Divider />
-            <Text>Phone number: {appointment?.phone}</Text>
+            <Text>Doctor ID: {appointment?.doctorId}</Text>
             <Divider />
-            <Text>Doctor: {appointment?.doctor}</Text>
+            <Text>Department ID: {appointment?.departmentId}</Text>
             <Divider />
-            <Text>Date: {appointment?.startDate}</Text>
+            <Text>Type: {appointment?.type}</Text>
             <Divider />
-            <Text>Start Time: {appointment?.startTime}</Text>
+            <Text>Status: {appointment?.status}</Text>
             <Divider />
-            {/* <Text>End Time: {appointment?.endTime}</Text> */}
+            <Text>Date: {appointment?.date}</Text>
+            <Divider />
+            <Text>Time: {appointment?.time}</Text>
+            <Divider />
+            <Text>Notes: {appointment?.notes || 'No notes'}</Text>
           </ModalBody>
 
           <ModalFooter>

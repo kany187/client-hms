@@ -47,29 +47,46 @@ export const ReportCard = ({ title }: Props) => {
 
   return (
     <Card
-      borderRadius={10}
-      w="150px"
-      h="130px"
-      pt="15px"
+      borderRadius="xl"
+      w={{ base: "100%", sm: "200px", md: "220px", lg: "240px" }}
+      h={{ base: "140px", sm: "160px", md: "180px" }}
+      p={{ base: "4", sm: "5", md: "6" }}
       alignItems="center"
       bgPosition="center"
       bgRepeat="no-repeat"
       bgSize="cover"
+      shadow="md"
+      _hover={{ 
+        shadow: "lg", 
+        transform: "translateY(-2px)",
+        transition: "all 0.2s ease-in-out"
+      }}
+      transition="all 0.2s ease-in-out"
+      border="1px solid"
+      borderColor="gray.100"
     >
-      <Flex gap="1" alignItems="center" mb="2" ml="1" alignSelf="start">
+      <Flex gap="3" alignItems="center" mb="4" alignSelf="start">
         <Box>{renderIcon()}</Box>
-        <Text as="b">{title}</Text>
+        <Text as="b" fontSize={{ base: "sm", md: "md" }} color="gray.700">
+          {title}
+        </Text>
       </Flex>
-      <Text as="b" alignSelf="start" ml="15px" mb="10px">
+      <Text 
+        as="b" 
+        alignSelf="start" 
+        fontSize={{ base: "2xl", md: "3xl" }} 
+        color="blue.600"
+        mb="3"
+      >
         {renderCount()}
       </Text>
-      <Stack spacing={3} direction="row" align="center" mb="0px">
-        <Text as="b" fontSize="10px">
+      <Stack spacing={2} direction="row" align="center" mb="0px">
+        <Text as="b" fontSize={{ base: "xs", sm: "sm" }} color="gray.500">
           Last 7 days
         </Text>
         <MdOutlineTrendingUp className="icon-two" />
-        <Text fontSize="10px" color="teal">
-          2.1%
+        <Text fontSize={{ base: "xs", sm: "sm" }} color="green.500" fontWeight="semibold">
+          +2.1%
         </Text>
       </Stack>
     </Card>
