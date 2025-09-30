@@ -132,7 +132,7 @@ export const PatientStats = () => {
   ];
 
   return (
-    <VStack spacing={4} align="stretch">
+    <VStack spacing={3} align="stretch" minH="200px" maxH="300px">
       <HStack justify="space-between" align="center" wrap="wrap" gap={2}>
         <VStack align="start" spacing={1}>
           <Text fontSize="lg" fontWeight="bold" color={textColor}>
@@ -160,13 +160,13 @@ export const PatientStats = () => {
         </Select>
       </HStack>
 
-      <Box bg={bgColor} borderRadius="lg" p={4} boxShadow="sm">
+      <Box bg={bgColor} borderRadius="lg" p={3} boxShadow="sm">
         <Chart
           options={chartOptions}
           series={series}
           type="bar"
           width="100%"
-          height="400px"
+          height="250px"
         />
       </Box>
     </VStack>

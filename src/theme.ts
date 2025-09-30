@@ -1,5 +1,5 @@
 
-import { extendTheme, ThemeConfig } from "@chakra-ui/react";
+import { extendTheme, ThemeConfig, SystemStyleFunction } from "@chakra-ui/react";
 
 const config: ThemeConfig = {
   initialColorMode: 'light',
@@ -35,18 +35,23 @@ const theme = extendTheme({
     '2xl': '1536px',
   },
   styles: {
-    global: {
+    global: (props: any) => ({
       body: {
-        bg: 'gray.50',
-        color: 'gray.800',
+        bg: props.colorMode === 'dark' ? 'gray.900' : 'gray.50',
+        color: props.colorMode === 'dark' ? 'gray.100' : 'gray.800',
+        transition: 'background-color 0.2s, color 0.2s',
       },
-    },
+      '*': {
+        borderColor: props.colorMode === 'dark' ? 'gray.700' : 'gray.200',
+      },
+    }),
   },
   components: {
     Button: {
       baseStyle: {
         fontWeight: 'medium',
         borderRadius: 'md',
+        transition: 'all 0.2s ease-in-out',
       },
       variants: {
         solid: {
@@ -54,20 +59,92 @@ const theme = extendTheme({
           color: 'white',
           _hover: {
             bg: 'brand.600',
+            transform: 'translateY(-1px)',
+            boxShadow: 'md',
+          },
+          _active: {
+            transform: 'translateY(0)',
+          },
+        },
+        outline: {
+          borderColor: 'brand.500',
+          color: 'brand.500',
+          _hover: {
+            bg: 'brand.50',
+            borderColor: 'brand.600',
           },
         },
       },
     },
     Card: {
-      baseStyle: {
+      baseStyle: (props: any) => ({
         container: {
-          bg: 'white',
+          bg: props.colorMode === 'dark' ? 'gray.800' : 'white',
           borderRadius: 'lg',
           boxShadow: 'sm',
           border: '1px solid',
-          borderColor: 'gray.200',
+          borderColor: props.colorMode === 'dark' ? 'gray.700' : 'gray.200',
+          transition: 'all 0.2s ease-in-out',
+          _hover: {
+            boxShadow: 'md',
+            transform: 'translateY(-1px)',
+          },
         },
+      }),
+    },
+    Input: {
+      baseStyle: (props: any) => ({
+        field: {
+          bg: props.colorMode === 'dark' ? 'gray.700' : 'white',
+          borderColor: props.colorMode === 'dark' ? 'gray.600' : 'gray.300',
+          _focus: {
+            borderColor: 'brand.500',
+            boxShadow: '0 0 0 1px var(--chakra-colors-brand-500)',
+          },
+        },
+      }),
+    },
+    Alert: {
+      baseStyle: (props: any) => ({
+        container: {
+          borderRadius: 'md',
+          border: '1px solid',
+          borderColor: props.colorMode === 'dark' ? 'gray.600' : 'gray.200',
+        },
+      }),
+    },
+    Spinner: {
+      baseStyle: {
+        color: 'brand.500',
       },
+    },
+  },
+  layerStyles: {
+    card: {
+      bg: 'white',
+      boxShadow: 'sm',
+      borderRadius: 'lg',
+      border: '1px solid',
+      borderColor: 'gray.200',
+    },
+    'card-dark': {
+      bg: 'gray.800',
+      boxShadow: 'sm',
+      borderRadius: 'lg',
+      border: '1px solid',
+      borderColor: 'gray.700',
+    },
+  },
+  textStyles: {
+    heading: {
+      fontFamily: 'heading',
+      fontWeight: 'bold',
+      lineHeight: 'shorter',
+    },
+    body: {
+      fontFamily: 'body',
+      fontWeight: 'normal',
+      lineHeight: 'base',
     },
   },
 });

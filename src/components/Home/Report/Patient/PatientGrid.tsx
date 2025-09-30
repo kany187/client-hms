@@ -11,6 +11,7 @@ import {
   MenuList,
   Button,
   Icon,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
@@ -42,79 +43,77 @@ export const PatientGrid = () => {
   const stats = getStats();
 
   return (
-    <Box bg={bgColor} borderRadius="lg" p={6} boxShadow="sm" h="full">
-      <VStack spacing={4} align="stretch" h="full">
-        <HStack justify="space-between" align="center">
-          <HStack spacing={2}>
-            <FaUsers color="#319795" />
-            <Text fontSize="lg" fontWeight="bold" color={textColor}>
-              Patient Analytics
-            </Text>
-          </HStack>
-          <Badge colorScheme="teal" variant="subtle" fontSize="sm">
-            <FaChartBar style={{ marginRight: '4px' }} />
-            Visit Trends
-          </Badge>
-        </HStack>
-
-        <HStack justify="space-between" align="center" wrap="wrap" gap={2}>
-          <Text fontSize="md" fontWeight="semibold" color={textColor}>
-            Average Patient Visits
+    <VStack spacing={3} align="stretch" minH="200px" maxH="250px">
+      <HStack justify="space-between" align="center" wrap="wrap" gap={2}>
+        <HStack spacing={2}>
+          <FaUsers color="#319795" />
+          <Text fontSize="lg" fontWeight="bold" color={textColor}>
+            Patient Analytics
           </Text>
-          <Menu>
-            <MenuButton
-              as={Button}
-              rightIcon={<BsChevronDown />}
-              colorScheme="teal"
-              variant="outline"
-              size="sm"
-              borderRadius="md"
-            >
-              {selectedItem}
-            </MenuButton>
-            <MenuList>
-              <MenuItem onClick={() => handleItemClick("Weekly")}>
-                Weekly
-              </MenuItem>
-              <MenuItem onClick={() => handleItemClick("Monthly")}>
-                Monthly
-              </MenuItem>
-              <MenuItem onClick={() => handleItemClick("Yearly")}>
-                Yearly
-              </MenuItem>
-            </MenuList>
-          </Menu>
         </HStack>
+        <Badge colorScheme="teal" variant="subtle" fontSize="sm">
+          <FaChartBar style={{ marginRight: '4px' }} />
+          Visit Trends
+        </Badge>
+      </HStack>
 
-        <HStack spacing={4} justify="space-around" wrap="wrap">
-          <VStack spacing={1}>
-            <Text fontSize="2xl" fontWeight="bold" color="teal.500">
-              {stats.total}
-            </Text>
-            <Text fontSize="sm" color={textColor}>
-              Total Visits
-            </Text>
-          </VStack>
-          
-          <VStack spacing={1}>
-            <Text fontSize="2xl" fontWeight="bold" color="blue.500">
-              {stats.average}
-            </Text>
-            <Text fontSize="sm" color={textColor}>
-              Avg per {selectedItem === "Weekly" ? "week" : selectedItem === "Monthly" ? "month" : "year"}
-            </Text>
-          </VStack>
-          
-          <VStack spacing={1}>
-            <Text fontSize="2xl" fontWeight="bold" color="green.500">
-              {stats.trend}
-            </Text>
-            <Text fontSize="sm" color={textColor}>
-              Growth Rate
-            </Text>
-          </VStack>
-        </HStack>
-      </VStack>
-    </Box>
+      <HStack justify="space-between" align="center" wrap="wrap" gap={2}>
+        <Text fontSize="md" fontWeight="semibold" color={textColor}>
+          Average Patient Visits
+        </Text>
+        <Menu>
+          <MenuButton
+            as={Button}
+            rightIcon={<BsChevronDown />}
+            colorScheme="teal"
+            variant="outline"
+            size="sm"
+            borderRadius="md"
+          >
+            {selectedItem}
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => handleItemClick("Weekly")}>
+              Weekly
+            </MenuItem>
+            <MenuItem onClick={() => handleItemClick("Monthly")}>
+              Monthly
+            </MenuItem>
+            <MenuItem onClick={() => handleItemClick("Yearly")}>
+              Yearly
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </HStack>
+
+      <SimpleGrid columns={{ base: 1, sm: 3 }} spacing={3} flex="1">
+        <VStack spacing={1} p={3} bg={useColorModeValue("gray.50", "gray.700")} borderRadius="md">
+          <Text fontSize="2xl" fontWeight="bold" color="teal.500">
+            {stats.total}
+          </Text>
+          <Text fontSize="sm" color={textColor} textAlign="center">
+            Total Visits
+          </Text>
+        </VStack>
+        
+        <VStack spacing={1} p={3} bg={useColorModeValue("gray.50", "gray.700")} borderRadius="md">
+          <Text fontSize="2xl" fontWeight="bold" color="blue.500">
+            {stats.average}
+          </Text>
+          <Text fontSize="sm" color={textColor} textAlign="center">
+            Avg per {selectedItem === "Weekly" ? "week" : selectedItem === "Monthly" ? "month" : "year"}
+          </Text>
+        </VStack>
+        
+        <VStack spacing={1} p={3} bg={useColorModeValue("gray.50", "gray.700")} borderRadius="md">
+          <Text fontSize="2xl" fontWeight="bold" color="green.500">
+            {stats.trend}
+          </Text>
+          <Text fontSize="sm" color={textColor} textAlign="center">
+            Growth Rate
+          </Text>
+        </VStack>
+      </SimpleGrid>
+    </VStack>
   );
 };

@@ -7,25 +7,23 @@ export const Revenue = () => {
   const textColor = useColorModeValue("gray.600", "gray.300");
 
   return (
-    <Box bg={bgColor} borderRadius="lg" p={6} boxShadow="sm" h="full">
-      <VStack spacing={4} align="stretch" h="full">
-        <HStack justify="space-between" align="center">
-          <HStack spacing={2}>
-            <FaChartLine color="#319795" />
-            <Text fontSize="lg" fontWeight="bold" color={textColor}>
-              Revenue Analytics
-            </Text>
-          </HStack>
-          <Badge colorScheme="teal" variant="subtle" fontSize="sm">
-            <FaDollarSign style={{ marginRight: '4px' }} />
-            Financial Overview
-          </Badge>
+    <VStack spacing={3} align="stretch" minH="300px" maxH="400px">
+      <HStack justify="space-between" align="center" wrap="wrap" gap={2}>
+        <HStack spacing={2}>
+          <FaChartLine color="#319795" />
+          <Text fontSize="lg" fontWeight="bold" color={textColor}>
+            Revenue Analytics
+          </Text>
         </HStack>
-        
-        <Box flex="1">
-          <RevenueChart />
-        </Box>
-      </VStack>
-    </Box>
+        <Badge colorScheme="teal" variant="subtle" fontSize="sm">
+          <FaDollarSign style={{ marginRight: '4px' }} />
+          Financial Overview
+        </Badge>
+      </HStack>
+      
+      <Box flex="1" minH="220px" maxH="280px" overflow="hidden">
+        <RevenueChart />
+      </Box>
+    </VStack>
   );
 };

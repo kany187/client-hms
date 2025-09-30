@@ -155,33 +155,33 @@ export const RevenueChart = () => {
   ];
 
   return (
-    <VStack spacing={4} align="stretch">
+    <VStack spacing={3} align="stretch" h="full">
       <HStack justify="space-between" align="center" wrap="wrap" gap={2}>
         <VStack align="start" spacing={1}>
           <Text fontSize="lg" fontWeight="bold" color={textColor}>
             Revenue Analytics
           </Text>
-          <HStack spacing={4}>
-            <Badge colorScheme="green" variant="subtle">
+          <HStack spacing={2} wrap="wrap">
+            <Badge colorScheme="green" variant="subtle" fontSize="xs">
               Income: ${totalIncome.toLocaleString()}
             </Badge>
-            <Badge colorScheme="red" variant="subtle">
+            <Badge colorScheme="red" variant="subtle" fontSize="xs">
               Expenses: ${totalExpenses.toLocaleString()}
             </Badge>
-            <Badge colorScheme={netProfit >= 0 ? "green" : "red"} variant="solid">
+            <Badge colorScheme={netProfit >= 0 ? "green" : "red"} variant="solid" fontSize="xs">
               Net: ${netProfit.toLocaleString()}
             </Badge>
           </HStack>
         </VStack>
       </HStack>
 
-      <Box bg={bgColor} borderRadius="lg" p={4} boxShadow="sm">
+      <Box flex="1" minH="200px" maxH="280px" overflow="hidden">
         <Chart
           options={chartOptions}
           series={series}
           type="area"
           width="100%"
-          height="400px"
+          height="100%"
         />
       </Box>
     </VStack>

@@ -10,6 +10,24 @@ import {
   VStack,
   HStack,
   Text,
+  Button,
+  Icon,
+  Badge,
+  useColorModeValue,
+  SimpleGrid,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  Card,
+  CardBody,
+  CardHeader,
+  Heading,
+  Avatar,
+  Progress,
+  IconButton,
+  Tooltip,
 } from "@chakra-ui/react";
 import { NavBar } from "../components/Header/NavBar";
 import { Menu } from "../components/Aside/Menu";
@@ -20,13 +38,18 @@ import { PatientGrid } from "../components/Home/Report/Patient/PatientGrid";
 import { PatientStats } from "../components/Home/Report/Patient/PatientStats";
 import { Staff } from "../components/Home/Report/Staff/Staff";
 import { Revenue } from "../components/Home/Report/Revenue/Revenue";
+import { WelcomeSection } from "../components/Home/WelcomeSection";
+import { ActivityFeed } from "../components/Home/ActivityFeed";
+import { QuickActions } from "../components/Home/QuickActions";
+import { PerformanceMetrics } from "../components/Home/PerformanceMetrics";
 
 import { BiEnvelopeOpen } from "react-icons/bi";
 import { AiFillHome } from "react-icons/ai";
 import { HiUserGroup } from "react-icons/hi";
-import { FaUserTie } from "react-icons/fa";
-import { RiUserReceivedFill, RiStethoscopeFill } from "react-icons/ri";
-import { BsBuildingFillAdd } from "react-icons/bs";
+import { FaUserTie, FaBell, FaCalendarAlt, FaUserMd, FaUserNurse, FaChartLine, FaPlus, FaArrowUp, FaArrowDown } from "react-icons/fa";
+import { RiUserReceivedFill, RiStethoscopeFill, RiDashboardFill } from "react-icons/ri";
+import { BsBuildingFillAdd, BsThreeDotsVertical } from "react-icons/bs";
+import { MdNotifications, MdTrendingUp, MdTrendingDown, MdAccessTime } from "react-icons/md";
 import { Footer } from "../components/Footer/Footer";
 import { User } from "../types";
 
@@ -72,8 +95,13 @@ interface Props {
 }
 
 export const Home = ({ user }: Props) => {
+  const bgColor = useColorModeValue("gray.50", "gray.900");
+  const cardBg = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.600", "gray.300");
+  const borderColor = useColorModeValue("gray.200", "gray.700");
+
   return (
-    <Box minH="100vh" bg="gray.50">
+    <Box minH="100vh" bg={bgColor}>
       <Grid
         templateAreas={{
           base: `"nav" "main"`,
@@ -95,127 +123,86 @@ export const Home = ({ user }: Props) => {
         </Show>
         <GridItem area="main" p={{ base: "4", md: "6", lg: "8" }}>
           <Container maxW="container.xl">
-            {/* Top Section - Calendar and Statistics */}
+            {/* Welcome Section with Stats */}
+            <WelcomeSection user={user} />
+
+            {/* Main Dashboard Grid */}
             <Grid
-              templateAreas={{
-                base: `"left" "right"`,
-                lg: `"left right"`,
-              }}
               templateColumns={{
                 base: "1fr",
-                lg: "1fr 1fr",
+                lg: "2fr 1fr",
               }}
-              gap={{ base: "6", lg: "8" }}
-              mb={{ base: "8", lg: "10" }}
+              gap={6}
+              mb={6}
             >
-              <GridItem area="left">
-                <Box
-                  bg="white"
-                  border="1px solid"
-                  borderColor="gray.200"
-                  borderRadius="xl"
-                  p={{ base: "6", md: "8" }}
-                  shadow="md"
-                  minH="520px"
-                >
-                  <Stack 
-                    direction={{ base: "column", lg: "row" }} 
-                    spacing={{ base: "8", lg: "10" }}
-                    align="stretch"
-                    h="full"
-                  >
-                    <Box flex="1" p={4} minH="420px">
-                      <CalendarComponent />
-                    </Box>
-                    <Show above="lg">
-                      <Divider orientation="vertical" />
-                    </Show>
-                    <Box flex="1" p={4} minH="420px" overflow="hidden">
-                      <Box maxH="380px" overflowY="auto">
-                        <ReportList />
-                      </Box>
-                    </Box>
-                  </Stack>
-                </Box>
-              </GridItem>
-              
-              <GridItem area="right">
-                <Box
-                  bg="white"
-                  border="1px solid"
-                  borderColor="gray.200"
-                  borderRadius="lg"
-                  p={{ base: "4", md: "6" }}
-                  shadow="sm"
-                >
-                  <Statistics />
-                </Box>
-              </GridItem>
+              {/* Left Column - Calendar and Analytics */}
+              <VStack spacing={4} align="stretch">
+                {/* Calendar Section */}
+                <Card bg={cardBg} border="1px solid" borderColor={borderColor}>
+                  <CardHeader>
+                    <Flex justify="space-between" align="center">
+                      <Heading size="md" color={textColor}>
+                        <Icon as={FaCalendarAlt} mr={2} />
+                        Today's Schedule
+                      </Heading>
+                      <Button size="sm" variant="outline" colorScheme="teal">
+                        View All
+                      </Button>
+                    </Flex>
+                  </CardHeader>
+                  <CardBody>
+                    <CalendarComponent />
+                  </CardBody>
+                </Card>
+
+                {/* Performance Metrics */}
+                <PerformanceMetrics />
+              </VStack>
+
+              {/* Right Column - Quick Actions and Recent Activity */}
+              <VStack spacing={4} align="stretch">
+                {/* Quick Actions */}
+                <QuickActions />
+
+                {/* Recent Activity */}
+                <ActivityFeed />
+              </VStack>
             </Grid>
 
-            {/* Bottom Section - Patient, Staff, and Revenue */}
+            {/* Bottom Analytics Grid */}
             <Grid
               templateColumns={{
                 base: "1fr",
                 md: "1fr 1fr",
                 lg: "1fr 1fr 1fr",
               }}
-              gap={{ base: "6", md: "8" }}
+              gap={4}
+              mb={6}
             >
-              <GridItem>
-                <Box
-                  bg="white"
-                  border="1px solid"
-                  borderColor="gray.200"
-                  borderRadius="xl"
-                  p={{ base: "6", md: "8" }}
-                  shadow="md"
-                  _hover={{ 
-                    shadow: "lg",
-                    transition: "all 0.2s ease-in-out"
-                  }}
-                  transition="all 0.2s ease-in-out"
-                >
-                  <PatientGrid />
-                  <PatientStats />
-                </Box>
-              </GridItem>
-              
-              <GridItem>
-                <Box
-                  bg="white"
-                  border="1px solid"
-                  borderColor="gray.200"
-                  borderRadius="xl"
-                  p={{ base: "6", md: "8" }}
-                  shadow="md"
-                  _hover={{ 
-                    shadow: "lg",
-                    transition: "all 0.2s ease-in-out"
-                  }}
-                  transition="all 0.2s ease-in-out"
-                >
+              {/* Patient Analytics */}
+              <Card bg={cardBg} border="1px solid" borderColor={borderColor} _hover={{ shadow: "lg" }}>
+                <CardBody>
+                  <VStack spacing={4} align="stretch">
+                    <PatientGrid />
+                    <Divider />
+                    <PatientStats />
+                  </VStack>
+                </CardBody>
+              </Card>
+
+              {/* Staff Analytics */}
+              <Card bg={cardBg} border="1px solid" borderColor={borderColor} _hover={{ shadow: "lg" }}>
+                <CardBody>
                   <Staff />
-                </Box>
-              </GridItem>
-              
-              <GridItem>
-                <Box
-                  bg="white"
-                  border="1px solid"
-                  borderColor="gray.200"
-                  borderRadius="xl"
-                  p={{ base: "6", md: "8" }}
-                  shadow="md"
-                  _hover={{ 
-                    shadow: "lg",
-                    transition: "all 0.2s ease-in-out"
-                  }}
-                  transition="all 0.2s ease-in-out"
-                >
+                </CardBody>
+              </Card>
+
+              {/* Revenue Analytics */}
+              <Card bg={cardBg} border="1px solid" borderColor={borderColor} _hover={{ shadow: "lg" }}>
+                <CardBody>
                   <Revenue />
-                </Box>
-              </GridItem>
+                </CardBody>
+              </Card>
             </Grid>
           </Container>
         </GridItem>

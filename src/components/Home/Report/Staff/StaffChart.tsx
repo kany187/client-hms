@@ -172,8 +172,8 @@ export const StaffChart = ({ title }: Props) => {
   }
 
   return (
-    <VStack spacing={4} align="stretch">
-      <HStack justify="space-between" align="center">
+    <VStack spacing={3} align="stretch" h="full">
+      <HStack justify="space-between" align="center" wrap="wrap" gap={2}>
         <Text fontSize="lg" fontWeight="bold" color={textColor}>
           {title}s by Department
         </Text>
@@ -182,13 +182,13 @@ export const StaffChart = ({ title }: Props) => {
         </Badge>
       </HStack>
       
-      <Box bg={bgColor} borderRadius="lg" p={4} boxShadow="sm">
+      <Box flex="1" minH="180px" maxH="220px" overflow="hidden">
         <Chart
           options={chartOptions}
           series={series}
           type="bar"
           width="100%"
-          height="350px"
+          height="100%"
         />
       </Box>
       
